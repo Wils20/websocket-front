@@ -31,7 +31,7 @@ document.getElementById('form').addEventListener('submit', function (e) {
   const message = document.getElementById('message').value.trim();
   if (!message) return;
 
-  fetch('http://localhost:5000/', {
+  fetch('https://websocket-back-wil.onrender.com', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ message, sender: 'cliente1' })
