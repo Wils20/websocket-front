@@ -19,12 +19,15 @@ async function iniciarChat() {
   const data = await res.json();
   currentChannel = data.channel;
 
+  // 🔹 Mostrar canal en pantalla
+  document.getElementById("canal-info").innerText = `📡 Estás en: ${currentChannel}`;
+
   const channel = pusher.subscribe(currentChannel);
   channel.bind("new-message", function (data) {
     mostrarMensaje(data.sender, data.message, data.timestamp);
   });
 
-  // Cargar mensajes guardados
+  // 📦 Cargar mensajes guardados del canal
   const msgs = await fetch(`${backendURL}/messages/${currentChannel}`).then(r => r.json());
   msgs.forEach(m => mostrarMensaje(m.username, m.message, m.timestamp));
 }

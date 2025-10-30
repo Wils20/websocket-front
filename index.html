@@ -2,12 +2,16 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Chat con Pusher (Cliente 1)</title>
+  <title>Chat con Pusher (Cliente)</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://js.pusher.com/8.4.0/pusher.min.js"></script>
 </head>
 <body>
   <h2>💬 Chat en tiempo real</h2>
+
+  <!-- 🔹 Aquí mostramos el canal asignado -->
+  <div id="canal-info" style="margin-bottom:10px; font-weight:bold; color:#555;"></div>
+
   <div id="chat-box"></div>
 
   <form id="form">
