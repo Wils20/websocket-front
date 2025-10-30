@@ -2,16 +2,80 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Chat con Pusher </title>
+  <title>Chat público con Pusher</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://js.pusher.com/8.4.0/pusher.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f5ff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h2 { color: #5a2ca0; }
+    #canal-info {
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #333;
+    }
+    #chat-box {
+      width: 90%;
+      max-width: 500px;
+      height: 400px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 10px;
+      overflow-y: auto;
+      background: white;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      margin-bottom: 10px;
+    }
+    .message {
+      margin: 5px 0;
+      padding: 5px 10px;
+      border-radius: 6px;
+    }
+    .own {
+      background: #e5d8ff;
+      text-align: right;
+    }
+    .other {
+      background: #f2f2f2;
+    }
+    .time {
+      font-size: 10px;
+      color: #666;
+    }
+    form {
+      display: flex;
+      gap: 5px;
+    }
+    input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      background: #5a2ca0;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #4b2386;
+    }
+  </style>
 </head>
 <body>
-  <h2>💬 Chat en tiempo real</h2>
-
-  <!-- 🔹 Aquí mostramos el canal asignado -->
-  <div id="canal-info" style="margin-bottom:10px; font-weight:bold; color:#555;"></div>
-
+  <h2>💬 Chat público en tiempo real</h2>
+  <div id="canal-info">Conectando...</div>
   <div id="chat-box"></div>
 
   <form id="form">
