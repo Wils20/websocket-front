@@ -9,8 +9,9 @@ const pusher = new Pusher("b6bbf62d682a7a882f41", {
   forceTLS: true
 });
 
+// 🔹 Función para iniciar chat
 async function iniciarChat() {
-  // 🔹 Pedir al backend que asigne canal automáticamente
+  // Pedir canal al backend
   const res = await fetch(`${backendURL}/join`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -24,23 +25,24 @@ async function iniciarChat() {
     return;
   }
 
-  currentChannel = data.channel;
+  currentChannel = data.chat;
 
-  // 🔹 Mostrar canal en pantalla
-  document.getElementById("canal-info").innerText = `📡 Estás en: ${currentChannel}`;
+  // Mostrar canal y usuario
+  document.getElementById("canal-info").innerText = `📡 Canal: ${currentChannel} | Usuario: ${username}`;
 
-  // 🔹 Suscribirse a ese canal
+  // Suscribirse al canal
   const channel = pusher.subscribe(currentChannel);
-  channel.bind("new-message", function (data) {
-    mostrarMensaje(data.sender, data.message, data.timestamp);
+  channel.bind("new-message", function(msg) {
+    mostrarMensaje(msg.sender, msg.message, msg.timestamp);
   });
 
-  // 🔹 Cargar mensajes guardados
+  // Cargar mensajes guardados
   const msgs = await fetch(`${backendURL}/messages/${currentChannel}`).then(r => r.json());
   msgs.forEach(m => mostrarMensaje(m.username, m.message, m.timestamp));
 }
 
-document.getElementById("form").addEventListener("submit", async function (e) {
+// Enviar mensaje
+document.getElementById("form").addEventListener("submit", async function(e) {
   e.preventDefault();
   const message = document.getElementById("message").value.trim();
   if (!message) return;
@@ -58,6 +60,7 @@ document.getElementById("form").addEventListener("submit", async function (e) {
   document.getElementById("message").value = "";
 });
 
+// Mostrar mensaje en chat
 function mostrarMensaje(sender, message, timestamp) {
   const chatBox = document.getElementById("chat-box");
   const msg = document.createElement("div");
@@ -68,5 +71,5 @@ function mostrarMensaje(sender, message, timestamp) {
   chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-// 🚀 Iniciar automáticamente
+// Iniciar automáticamente
 iniciarChat();
